@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>E-Waste Atlas · Waste-to-Resource Lab</title>
+<meta name="description" content="E-Waste Atlas by the W2R Lab: an interactive, source-first explorer of the world’s electronic waste — categories, materials, fates, regions and future.">
+<meta name="theme-color" content="#0d1b22">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}body{margin:0;background:#eaf3f6;color:#10293a;font-family:Figtree,system-ui,-apple-system,"Segoe UI",sans-serif}
+</style>
+</head>
+<body>
+<div id="e-waste-atlas"><template shadowrootmode="open"><style>
+:host{display:block;--bg:#eaf3f6;--panel:#ffffff;--text:#10293a;--muted:#536b78;--line:#c5dbe3;--teal:#0e8a8f;--tealD:#0a6b70;--copper:#c0652a;--gold:#e0a93b;--cyan:#55c3df;--violet:#a497f2;--soft:#dcecf1;--soft2:#f3f9fb}
+*{box-sizing:border-box}.pa{margin:0;background:radial-gradient(circle at 15% 0,#d2e9f0 0,transparent 28%),var(--bg);color:var(--text);font-family:inherit;line-height:1.5}
+a{color:var(--teal)}.wrap{width:min(1120px,calc(100% - 32px));margin:auto}
+.top{position:sticky;top:0;z-index:9;background:#eaf3f6d9;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid #10293a14}.nav{height:66px;display:flex;align-items:center;justify-content:space-between}.brand{font-weight:800;letter-spacing:-.03em;display:flex;align-items:center}.brand-text{display:flex;flex-direction:column;line-height:1.15}.brand small{font-size:11px;font-weight:500;letter-spacing:0;color:var(--muted)}
+.brand i{flex-shrink:0;display:inline-block;width:11px;height:11px;border-radius:2px;background:var(--teal);box-shadow:10px -5px 0 var(--gold),5px 8px 0 var(--copper);margin-right:18px}
+.nav a{color:var(--muted);text-decoration:none;margin-left:18px;font-size:13px}.nav a:hover{color:var(--teal)}.nav a.lab-link{margin-left:0;font-size:inherit;color:inherit;text-decoration:underline;text-decoration-color:#536b7866;text-underline-offset:2px}.nav a.lab-link:hover{color:var(--teal)}
+/* clock */
+.waste-clock-section{padding:28px 0 0}.waste-clock{position:relative;overflow:hidden;border:1px solid #b4d3de;border-radius:24px;background:linear-gradient(115deg,#d9edf3,#f7fbfc 72%);padding:26px 28px;display:grid;grid-template-columns:1.35fr .65fr;gap:24px;align-items:center}.waste-clock:after{content:"";position:absolute;width:280px;height:280px;border-radius:50%;right:-95px;top:-145px;background:#0e8a8f12;pointer-events:none}
+.clock-label{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.16em;color:var(--copper)}.clock-number{font-variant-numeric:tabular-nums;font-size:clamp(46px,7vw,82px);line-height:.95;letter-spacing:-.055em;font-weight:850;margin:9px 0 6px}.clock-number span{font-size:.29em;letter-spacing:0;color:var(--muted);font-weight:650;margin-left:8px}.clock-copy{color:#46606d;font-size:14px;max-width:690px}
+.clock-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-top:18px}.clock-stat{border-top:1px solid #b4d3de;padding-top:11px}.clock-stat b{display:block;font-size:22px;font-variant-numeric:tabular-nums}.clock-stat small{color:#66808c}
+.leak-clock{border-left:1px solid #b4d3de;padding-left:24px;position:relative;z-index:1}.leak-clock strong{display:block;font-size:clamp(30px,4vw,46px);letter-spacing:-.045em;font-variant-numeric:tabular-nums;color:var(--copper)}.leak-clock span{color:#66808c;font-size:12px}
+.clock-progress{height:5px;background:#10293a12;border-radius:99px;overflow:hidden;margin-top:18px}.clock-progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--gold));border-radius:99px}.clock-source{display:block;margin-top:10px;color:#76909b;font-size:10px}
+/* hero */
+.hero{padding:90px 0 58px;display:grid;grid-template-columns:1.08fr .92fr;gap:48px;align-items:center}.eyebrow{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:var(--teal)}h1{font-size:clamp(50px,7vw,84px);line-height:.95;letter-spacing:-.065em;margin:14px 0 20px}h2{font-size:clamp(34px,5vw,56px);line-height:1;letter-spacing:-.045em;margin:8px 0 10px}.lead{font-size:19px;color:#3c5664;max-width:650px}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:25px}.pill{padding:8px 11px;border:1px solid #b4d3de;border-radius:999px;color:#3c5664;font-size:12px}
+.visual{height:430px;border:1px solid #bcd7e0;border-radius:28px;background:linear-gradient(160deg,#d9edf3,#f4f9fb);position:relative;overflow:hidden;box-shadow:0 25px 80px #1b4a5a22}.visual svg.pcb{position:absolute;inset:0;width:100%;height:100%}
+.pcb .tr{fill:none;stroke:#0e8a8f;stroke-width:2;opacity:.35}.pcb .pad{fill:#e0a93b}.pcb .via{fill:#fff;stroke:#0e8a8f;stroke-width:2;opacity:.6}.pcb .chip{fill:#10293a}.pcb .pin{fill:#c0652a}.pcb .pulse{fill:none;stroke:#e0a93b;stroke-width:3;stroke-linecap:round;stroke-dasharray:14 400;animation:run 5s linear infinite}.pcb .pulse.p2{stroke:#55c3df;animation-duration:6.5s;animation-delay:-2s}.pcb .pulse.p3{stroke:#c0652a;animation-duration:7.5s;animation-delay:-4s}
+@keyframes run{to{stroke-dashoffset:-414}}@media (prefers-reduced-motion:reduce){.pcb .pulse{animation:none;opacity:0}}
+.float{position:absolute;background:#ffffffd9;border:1px solid #10293a1a;border-radius:15px;padding:13px 15px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}.float b{display:block;font-size:23px}.float span{font-size:11px;color:var(--muted)}.f1{right:22px;top:22px}.f2{left:22px;bottom:30px}
+/* generic */
+.section{padding:72px 0}.head{display:flex;justify-content:space-between;gap:28px;align-items:end;margin-bottom:28px}.head p{max-width:500px;color:var(--muted);margin:0}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.kpi{border-top:1px solid #b4d3de;padding-top:16px}.kpi strong{display:block;font-size:32px;letter-spacing:-.04em}.kpi span{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.09em}
+.panel{border:1px solid var(--line);background:linear-gradient(180deg,#ffffff,var(--soft2));border-radius:22px;padding:22px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+/* tiles */
+.tilegrid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;align-content:start}.tile{background:#fff;border:1px solid var(--line);border-radius:15px;padding:13px;min-height:118px;color:var(--text);text-align:left;cursor:pointer;font:inherit;display:flex;flex-direction:column;align-items:stretch}.tile:hover,.tile.active{background:#e1f0f4;border-color:#3aa3a8}.tile b{font-size:17px;display:block;line-height:1.2}.tile em{font-style:normal;color:var(--teal);font-size:12px;font-weight:600}.tile small{display:block;color:#66808c;margin-top:8px;font-size:12px}.tile .ico{width:30px;height:30px;color:var(--teal);margin-bottom:8px}
+.elgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;align-content:start}.el{position:relative;background:#fff;border:1px solid var(--line);border-radius:12px;padding:9px 10px 10px;cursor:pointer;font:inherit;color:var(--text);text-align:left;min-height:104px;display:flex;flex-direction:column}.el:hover,.el.active{background:#e1f0f4;border-color:#3aa3a8}.el .z{font-size:10px;color:var(--muted)}.el .sym{font-size:30px;font-weight:800;letter-spacing:-.04em;line-height:1;margin:4px 0 3px}.el .nm{font-size:11px;color:var(--muted)}.el .q{margin-top:auto;font-size:11px;font-weight:700;color:var(--teal);font-variant-numeric:tabular-nums}.el.hz .sym{color:#b3412f}.el.hz .q{color:#b3412f}
+.el-key{display:flex;gap:14px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:10px}.el-key i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.detail h3{font-size:31px;margin:8px 0;letter-spacing:-.03em;line-height:1.05}.big{font-size:60px;font-weight:800;letter-spacing:-.06em;color:var(--teal);line-height:1.05}.big small{font-size:.35em;letter-spacing:0;color:var(--muted);font-weight:600;margin-left:6px}
+.barline{height:11px;background:#d6e8ee;border-radius:99px;overflow:hidden}.barline i{display:block;height:100%;background:var(--teal)}
+.rate{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin:16px 0 6px}.rate b{color:var(--text)}
+.facts{margin-top:18px;padding-top:16px;border-top:1px solid #d6e8ee}.facts dl{display:grid;grid-template-columns:auto 1fr;gap:7px 14px;margin:10px 0 0;font-size:13px}.facts dt{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em;padding-top:2px}.facts dd{margin:0}.facts-note{margin:12px 0 0;font-size:11px;color:#76909b}
+.el-photo{margin:16px 0 4px;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#fff}.el-photo img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#dcecf1}.el-photo figcaption{font-size:12.5px;line-height:1.4;color:var(--text);padding:9px 12px 10px}.el-photo .cr{display:block;font-size:10.5px;color:#76909b;margin-top:3px}.el-photo .cr a{color:inherit}
+.symbig{display:flex;align-items:center;gap:14px;margin:6px 0 10px}.symbox{width:74px;height:74px;border-radius:14px;border:1.5px solid var(--teal);display:flex;flex-direction:column;justify-content:center;align-items:center;color:var(--teal);flex-shrink:0}.symbox span{font-size:10px;color:var(--muted)}.symbox b{font-size:30px;line-height:1;letter-spacing:-.04em}.symbox.hz{border-color:#b3412f;color:#b3412f}.symbig .tags{display:flex;flex-wrap:wrap;gap:5px}.tag{font-size:11px;padding:3px 8px;border-radius:99px;background:#e1f0f4;color:var(--tealD);font-weight:600}.tag.hz{background:#fbe6df;color:#a03a24}.tag.crm{background:#fbf0d6;color:#8a5a00}
+/* composition */
+.comp{display:flex;height:54px;border-radius:14px;overflow:hidden;margin:6px 0 10px}.comp div{display:flex;flex-direction:column;justify-content:center;padding:0 14px;color:#fff;min-width:0}.comp b{font-size:18px;line-height:1.1}.comp span{font-size:11px;opacity:.9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.comp-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:22px}.vcard{border:1px solid var(--line);background:#fff;border-radius:15px;padding:15px}.vcard b{font-size:26px;display:block;letter-spacing:-.03em}.vcard span{font-size:12px;color:var(--muted)}
+/* chart */
+.switch{display:flex;gap:4px;background:#dcecf1;border:1px solid var(--line);border-radius:12px;padding:4px;width:max-content;max-width:100%;margin-bottom:16px;flex-wrap:wrap}.switch button{border:0;background:transparent;color:var(--muted);padding:8px 11px;border-radius:8px;cursor:pointer;font:inherit;font-size:13px}.switch button.active{background:#fff;color:var(--text);font-weight:600}.switch button:disabled{opacity:.35;cursor:not-allowed}
+.chart{height:300px;display:flex;align-items:end;gap:8px;border-bottom:1px solid var(--line)}.col{flex:1;height:100%;display:flex;flex-direction:column;justify-content:end;align-items:center;gap:6px;min-width:0}.bar{width:min(54px,70%);background:linear-gradient(#4cc0c4,#0e8a8f);border-radius:10px 10px 2px 2px;position:relative;overflow:hidden}.bar i{position:absolute;left:0;right:0;bottom:0;background:#e0a93b}.val,.lab{font-size:11px;color:var(--muted);text-align:center}.val b{color:var(--text)}.lab{height:42px;line-height:1.25}
+.chart-key{display:flex;gap:14px;font-size:11px;color:var(--muted);margin-top:12px;flex-wrap:wrap}.chart-key i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+/* lifecycle */
+.flow{display:grid;grid-template-columns:1fr 50px 1fr 50px 1.5fr;gap:8px;align-items:center}.node{border:1px solid var(--line);border-radius:16px;padding:18px;background:#fff}.node strong{display:block;font-size:31px;letter-spacing:-.03em}.node span{font-size:11px;color:var(--muted)}.node small{display:block;font-size:12px;color:var(--muted);margin-top:4px}.arrow{text-align:center;color:#7aa3b0;font-size:25px}
+.fates{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}.fate{background:#e1f0f4;border-radius:11px;padding:11px}.fate.f-good{background:#d3ecec}.fate.f-bad{background:#fbe9e1}.fate b{font-size:21px;display:block;line-height:1.15}.fate small{color:var(--muted);font-size:12px;line-height:1.3;display:block}
+.stack{display:flex;height:16px;border-radius:99px;overflow:hidden;margin:18px 0 8px}.stack i{display:block;height:100%}
+.metal-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+.notice{margin-top:14px;border-left:3px solid var(--copper);background:#fdf1e6;padding:12px 14px;border-radius:0 11px 11px 0;color:#6b4318;font-size:12px}
+/* future */
+.future{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:end;padding:25px 22px}.year{border-bottom:1px solid #b4d3de;padding:18px 4px}.year b{font-size:clamp(35px,5vw,64px);letter-spacing:-.06em;display:block;line-height:1.05}.year span{color:var(--muted);font-size:12px}
+.trend{display:block;width:100%;height:auto;margin-top:6px}.trend .ax{stroke:var(--line)}.trend .gen{fill:none;stroke:var(--teal);stroke-width:2.6}.trend .genp{fill:none;stroke:var(--teal);stroke-width:2.6;stroke-dasharray:6 5}.trend .rec{fill:none;stroke:var(--gold);stroke-width:2.6}.trend .area{fill:#0e8a8f14}.trend text{font-size:11px;fill:#66808c}.trend .lbl{font-weight:700;fill:var(--text);font-size:12px}
+.regions{display:grid;grid-template-columns:repeat(5,1fr);gap:9px}.reg{border:1px solid var(--line);border-radius:13px;padding:14px;background:#fff}.reg b{font-size:25px;display:block;letter-spacing:-.03em}.reg span{color:var(--muted);font-size:11px;display:block}.reg .barline{height:6px;margin:10px 0 4px}.reg .barline i{background:var(--gold)}
+/* sources & about */
+.sources{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.source{display:block;border:1px solid var(--line);border-radius:14px;padding:15px;background:#fff;color:var(--text);text-decoration:none}.source:hover{border-color:#3aa3a8}.source span{display:block;color:var(--muted);font-size:12px;margin-top:3px}
+.foot{padding:45px 0 75px;color:#66808c;font-size:11px}
+#about .head{display:block}#about .head p{max-width:760px;margin-top:14px;font-size:17px}.about-sub{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin:34px 0 12px}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.card{border:1px solid var(--line);background:#fff;border-radius:16px;padding:18px}.card h3{font-size:18px;letter-spacing:-.02em;margin:6px 0}.card .num{font-size:12px;font-weight:800;color:var(--teal);letter-spacing:.12em}.card p{margin:0;color:var(--muted);font-size:14px}
+.fields{width:100%;border-collapse:collapse;font-size:13px}.fields td{text-align:left;padding:8px 10px;border-bottom:1px solid #d6e8ee;vertical-align:top}.fields tr:last-child td{border-bottom:0}.fields td:first-child{font-family:ui-monospace,Consolas,monospace;color:var(--teal);white-space:nowrap}
+/* map */
+.mapbox{padding:20px}.map-controls{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px}.mpills{display:flex;flex-wrap:wrap;gap:6px}.mpill{border:1px solid var(--line);background:#fff;color:var(--text);border-radius:999px;padding:7px 12px;font-size:13px;cursor:pointer;font-family:inherit}.mpill:hover{border-color:#3aa3a8}.mpill.active{background:var(--teal);border-color:var(--teal);color:#fff}.map-toggles{display:flex;flex-wrap:wrap;gap:8px}.map-toggles .switch{margin-bottom:0}
+.map-grid{display:grid;grid-template-columns:1fr 300px;gap:18px;align-items:start}.map-wrap{position:relative;min-width:0}#worldMap{display:block;width:100%;height:auto;background:var(--soft2);border-radius:14px;border:1px solid #d6e8ee}.country{stroke:#fff;stroke-width:.5;cursor:pointer}.country:hover{stroke:#10293a;stroke-width:1}.country.sel{stroke:#10293a;stroke-width:1.6}
+.map-tip{position:absolute;pointer-events:none;background:#10293a;color:#fff;border-radius:9px;padding:7px 10px;font-size:12px;line-height:1.35;box-shadow:0 6px 18px #10293a33;white-space:nowrap;z-index:2}.map-tip b{display:block;font-size:13px}.map-tip span{color:#c9dfe7;display:block}
+.map-legend{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px;font-size:11px;color:var(--muted)}.map-legend .lbar{display:block;width:min(220px,40vw);height:10px;border-radius:99px}.map-legend em{font-style:normal;flex-basis:100%}.map-legend .nd{display:inline-flex;align-items:center;gap:5px;margin-left:8px}.map-legend .nd i{width:10px;height:10px;border-radius:3px;background:#e3eaed;border:1px solid #cfdbe0}
+.rleg{display:flex;flex-wrap:wrap;gap:4px 10px}.rleg button{border:0;background:none;padding:2px 0;font:inherit;color:var(--text);cursor:pointer;display:flex;align-items:center;gap:5px}.rleg i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.map-side{border:1px solid var(--line);background:#fff;border-radius:16px;padding:16px}.ms-pick{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}.ms-pick select{display:block;width:100%;margin-top:5px;padding:7px 8px;border:1px solid var(--line);border-radius:9px;background:var(--soft2);color:var(--text);font:inherit;font-size:14px;text-transform:none;letter-spacing:0}.ms-value{font-size:40px;font-weight:800;letter-spacing:-.05em;color:var(--teal);margin-top:12px;line-height:1.05}.ms-sub{font-size:12px;color:var(--muted)}.ms-share{font-size:12px;color:var(--text);margin-top:4px;font-weight:600}
+.spark{display:block;width:100%;height:auto;margin-top:12px}.spark .ax{stroke:var(--line)}.spark .split{stroke:var(--line);stroke-dasharray:2 3}.spark .hist{fill:none;stroke:var(--teal);stroke-width:2.2}.spark .proj{fill:none;stroke:var(--teal);stroke-width:2.2;stroke-dasharray:5 4;opacity:.8}.spark .now{stroke:#c0452f;stroke-width:1}.spark .dot{fill:#c0452f}.spark text{font-size:9px;fill:#66808c}
+.ms-key{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--muted);margin-top:2px}.ms-key span{display:inline-block;width:16px;border-top:2.2px solid var(--teal)}.ms-key .k-p{border-top-style:dashed;margin-left:8px}
+.ms-top h4{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:16px 0 6px}.trow{position:relative;display:flex;justify-content:space-between;gap:8px;width:100%;border:0;background:none;padding:6px 0 9px;font:inherit;font-size:12.5px;color:var(--text);cursor:pointer;text-align:left}.trow b{font-variant-numeric:tabular-nums}.trow i{position:absolute;left:0;bottom:2px;height:4px;border-radius:99px;background:#f0c36b}.trow.on span{font-weight:800}
+.timeline{display:flex;align-items:center;gap:14px;margin-top:16px}.play{flex-shrink:0;width:42px;height:42px;border-radius:50%;border:0;background:var(--teal);color:#fff;font-size:14px;cursor:pointer}.play:hover{background:var(--tealD)}.timeline input{flex:1;accent-color:var(--teal);min-width:0}.year-read{min-width:160px}.year-read b{display:block;font-size:30px;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}.year-read span{font-size:11px;color:var(--muted)}.map-err{padding:40px 16px;text-align:center;color:var(--muted)}
+@media(max-width:880px){.waste-clock{grid-template-columns:1fr}.leak-clock{border-left:0;border-top:1px solid #b4d3de;padding:18px 0 0}.hero,.grid2{grid-template-columns:1fr}.detail{order:-1;scroll-margin-top:82px}.nav>div:last-child{display:none}.kpis{grid-template-columns:repeat(2,1fr)}.elgrid{grid-template-columns:repeat(5,1fr)}.flow{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}.regions{grid-template-columns:repeat(2,1fr)}.cards,.comp-row{grid-template-columns:1fr}.metal-flow{grid-template-columns:repeat(2,1fr)}.map-grid{grid-template-columns:1fr}.mapbox{padding:14px}.year-read{min-width:110px}.year-read b{font-size:24px}}
+@media(max-width:520px){.hero{padding:56px 0 40px}.visual{height:330px}.head{display:block}.head p{margin-top:12px}.elgrid{grid-template-columns:repeat(3,1fr)}.sources{grid-template-columns:1fr}.chart{height:260px}.lab{font-size:9px}.future{grid-template-columns:1fr}.clock-stats{grid-template-columns:1fr 1fr}.comp span{display:none}}
+section[id]{scroll-margin-top:80px}
+.dl-row{display:flex;justify-content:flex-end;align-items:center;gap:6px;margin:0 0 8px;font-size:11px;color:var(--muted)}.dl-row>span{margin-right:2px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;font-size:10px}.dl-row button{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);background:#fff;color:var(--text);border-radius:999px;padding:4px 10px;font:inherit;font-size:11.5px;font-weight:600;cursor:pointer}.dl-row button:hover{border-color:#3aa3a8;color:var(--tealD)}.dl-row button:disabled{opacity:.55;cursor:progress}.dl-row svg{width:12px;height:12px}
+.wrap.kpis+.dl-row,.dl-row.kp{width:min(1120px,calc(100% - 32px));margin-left:auto;margin-right:auto}
+.dl-toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#10293a;color:#fff;padding:9px 14px;border-radius:10px;font-size:13px;z-index:20;box-shadow:0 8px 24px #10293a40}
+</style><div class="pa">
+<div class="top"><div class="wrap nav"><div class="brand"><i></i><span class="brand-text">E-Waste Atlas<small>by <a class="lab-link" href="https://w2r-lab.vercel.app/" target="_blank" rel="noopener">W2R lab</a> at the Technion</small></span></div><div><a href="#about">About</a><a href="#categories">Categories</a><a href="#materials">Materials</a><a href="#lifecycle">Lifecycle</a><a href="#map">Map</a><a href="#future">Future</a><a href="#sources">Sources</a></div></div></div>
+
+<section class="waste-clock-section"><div class="wrap"><div class="waste-clock" aria-live="off" data-ig="clock"><div><div class="clock-label">2022-rate e-waste clock</div><div class="clock-number" id="wasteToday">0<span>tonnes today</span></div><div class="clock-copy">This is not a live measurement. It shows how much e-waste would accumulate by this time of day if the Global E-waste Monitor's estimate for 2022 — 62 million tonnes — were spread evenly across the year.</div><div class="clock-stats"><div class="clock-stat"><b>~170,000 t</b><small>every 24 hours</small></div><div class="clock-stat"><b>~1,970 kg</b><small>every second</small></div><div class="clock-stat"><b>~7,100 t</b><small>every hour</small></div></div><div class="clock-progress"><i id="wasteProgress"></i></div><span class="clock-source">Derived from the Global E-waste Monitor 2024 (UNITAR / ITU) estimate for 2022. Counter resets at 00:00 UTC; it is an illustrative rate conversion, not a real-time sensor.</span></div><div class="leak-clock"><div class="clock-label">…of which undocumented</div><strong id="leakToday">0 t</strong><span>Illustrative accumulation of the 48 Mt/year (77.7%) that was <b>not</b> documented as formally collected and recycled in 2022.</span></div></div></div></section>
+
+<section class="wrap hero"><div><div class="eyebrow">Global material-flow explorer</div><h1>See the world through its electronics.</h1><p class="lead">Explore how much electrical and electronic equipment we discard, what it is made of, where it is generated and what happens to it after use.</p><div class="pills"><span class="pill">Global E-waste Monitor 2024</span><span class="pill">UN SDG indicators 12.4.2 · 12.5.1</span><span class="pill">UNITAR · ITU</span></div></div><div class="visual" aria-hidden="true"><svg class="pcb" viewBox="0 0 440 430" preserveAspectRatio="xMidYMid slice"><g id="traces"><path class="tr" d="M0 80 H120 L160 120 H260"/><path class="tr" d="M0 150 H90 L130 190 H180"/><path class="tr" d="M440 110 H340 L300 150 H260"/><path class="tr" d="M440 300 H360 L320 260 H260"/><path class="tr" d="M0 330 H110 L150 290 H180"/><path class="tr" d="M220 0 V90"/><path class="tr" d="M220 430 V320"/><path class="tr" d="M300 0 V60 L330 90 V200 H260"/><path class="tr" d="M120 430 V380 L150 350 H200 V320"/></g>
+<path class="pulse" d="M0 80 H120 L160 120 H260"/><path class="pulse p2" d="M440 300 H360 L320 260 H260"/><path class="pulse p3" d="M0 330 H110 L150 290 H180"/>
+<rect class="chip" x="170" y="110" width="100" height="100" rx="8"/><g class="pin"><rect x="160" y="125" width="10" height="5"/><rect x="160" y="145" width="10" height="5"/><rect x="160" y="165" width="10" height="5"/><rect x="160" y="185" width="10" height="5"/><rect x="270" y="125" width="10" height="5"/><rect x="270" y="145" width="10" height="5"/><rect x="270" y="165" width="10" height="5"/><rect x="270" y="185" width="10" height="5"/><rect x="185" y="100" width="5" height="10"/><rect x="205" y="100" width="5" height="10"/><rect x="225" y="100" width="5" height="10"/><rect x="245" y="100" width="5" height="10"/><rect x="185" y="210" width="5" height="10"/><rect x="205" y="210" width="5" height="10"/><rect x="225" y="210" width="5" height="10"/><rect x="245" y="210" width="5" height="10"/></g>
+<text x="220" y="166" text-anchor="middle" fill="#e0a93b" font-size="22" font-weight="800" font-family="inherit">Au·Cu</text><text x="220" y="186" text-anchor="middle" fill="#9fc6d2" font-size="11" font-family="inherit">Pd · Ag · Nd · Co</text>
+<rect class="chip" x="180" y="250" width="80" height="70" rx="6" opacity=".85"/><circle class="via" cx="120" cy="80" r="5"/><circle class="via" cx="90" cy="150" r="5"/><circle class="via" cx="340" cy="110" r="5"/><circle class="via" cx="360" cy="300" r="5"/><circle class="via" cx="110" cy="330" r="5"/><circle class="via" cx="330" cy="200" r="5"/><circle class="pad" cx="220" cy="90" r="6"/><circle class="pad" cx="220" cy="320" r="6"/><circle class="pad" cx="150" cy="350" r="6"/></svg>
+<div class="float f1"><b>62 Mt</b><span>e-waste generated · 2022</span></div><div class="float f2"><b>22.3%</b><span>documented as formally collected &amp; recycled</span></div></div></section>
+
+<section class="section"><div class="wrap kpis" data-ig="kpis"><div class="kpi"><strong>62 Mt</strong><span>Generated · 2022</span></div><div class="kpi"><strong>7.8 kg</strong><span>Per person · 2022</span></div><div class="kpi"><strong>22.3%</strong><span>Documented recycled</span></div><div class="kpi"><strong>82 Mt</strong><span>2030 projection</span></div></div></section>
+
+<section class="section" id="about"><div class="wrap"><div class="head"><div><div class="eyebrow">01 · About</div><h2>One traceable picture of the world's e-waste.</h2></div><p>E-Waste Atlas is a source-first data service on global electronic waste, developed by the From Waste to Resource (W2R) lab at the Technion. It brings trusted international datasets together in one place and keeps every number traceable to its source.</p></div>
+<h3 class="about-sub">The problem it solves</h3><div class="cards"><div class="card"><div class="num">INVISIBLE</div><h3>Most flows are undocumented</h3><p>More than three-quarters of e-waste leaves no formal paper trail: it is stored, traded, informally recycled or thrown in the bin.</p></div><div class="card"><div class="num">INCOMPARABLE</div><h3>"Generated", "collected" and "recycled" differ</h3><p>Countries report different stages of the chain, and mixing them up leads to misleading comparisons.</p></div><div class="card"><div class="num">UNTRACEABLE</div><h3>Numbers lose their origin</h3><p>Once a figure is quoted and re-quoted, its year, method and whether it was measured or modelled are often lost.</p></div></div>
+<h3 class="about-sub">How it works</h3><div class="grid2"><div class="panel"><p style="margin-top:0">The atlas does not produce its own estimates. It collects, labels and connects data published by international organisations (see <a href="#sources">Sources</a>), and follows e-waste as a material flow: which products it comes from, what materials it contains, where it is generated and how it is managed.</p><p style="margin-bottom:0">E-waste is defined as any discarded product with a plug or battery, grouped into six categories under the UN harmonised classification (with photovoltaic panels shown separately).</p></div><div class="panel"><table class="fields"><tbody><tr><td>source</td><td>The organisation and publication the value comes from.</td></tr><tr><td>version</td><td>Which release or edition of that source was used.</td></tr><tr><td>unit</td><td>What is counted, e.g. kilotonnes (kt), kg per capita or % share.</td></tr><tr><td>geography</td><td>World, continent, UN sub-region or country.</td></tr><tr><td>method</td><td>How the source produced the value.</td></tr><tr><td>status</td><td>Reported (measured) or modelled (estimated / projected).</td></tr></tbody></table></div></div>
+<h3 class="about-sub">Who it is for</h3><div class="cards"><div class="card"><h3>Researchers and students</h3><p>A starting point for e-waste figures, with the original source always one click away.</p></div><div class="card"><h3>Policy and industry</h3><p>A consistent overview of where e-waste arises and how much is formally recovered, to support collection targets and EPR design.</p></div><div class="card"><h3>The public</h3><p>A clear, visual way to understand what happens to the devices we throw away.</p></div></div></div></section>
+
+<section class="section" id="categories"><div class="wrap"><div class="head"><div><div class="eyebrow">02 · Products</div><h2>What becomes e-waste?</h2></div><p>E-waste is grouped by how it is collected and treated. Small household devices dominate by mass; lamps are the least recycled.</p></div><div class="grid2" data-ig="cats"><div class="tilegrid" id="catgrid"></div><div class="panel detail" id="catDetail"></div></div>
+<div class="panel" style="margin-top:15px" data-ig="catchart"><div class="switch" id="catSwitch"><button class="active" data-mode="mass">Generated vs. recycled (Mt)</button><button data-mode="rate">Documented recycling rate</button></div><div class="chart" id="chart"></div><div class="chart-key" id="chartKey"></div></div></div></section>
+
+<section class="section" id="materials"><div class="wrap"><div class="head"><div><div class="eyebrow">03 · Materials</div><h2>What is e-waste made of?</h2></div><p>The 62 Mt discarded in 2022 held metals worth an estimated US$91 billion — and hazardous substances that need careful handling.</p></div>
+<div data-ig="comp"><div class="comp" role="img" aria-label="Composition of e-waste in 2022: 31 Mt metals, 17 Mt plastics, 14 Mt other materials"><div style="flex:31;background:#0e8a8f"><b>31 Mt</b><span>Metals</span></div><div style="flex:17;background:#55a7c4"><b>17 Mt</b><span>Plastics</span></div><div style="flex:14;background:#8aa1ad"><b>14 Mt</b><span>Other: glass, minerals, composites</span></div></div>
+<div class="comp-row"><div class="vcard"><b>US$91 bn</b><span>Value of metals embedded in 2022 e-waste</span></div><div class="vcard"><b>US$28 bn</b><span>Secondary raw materials actually recovered</span></div><div class="vcard"><b>~1%</b><span>Share of rare-earth demand met by e-waste recycling</span></div></div>
+</div><div class="grid2" data-ig="els"><div><div class="elgrid" id="elgrid"></div><div class="el-key"><span><i style="background:var(--teal)"></i>Mass contained in 2022 e-waste</span><span><i style="background:#b3412f"></i>Hazardous · mass released per year</span></div></div><div class="panel detail" id="elDetail"></div></div></div></section>
+
+<section class="section" id="lifecycle"><div class="wrap"><div class="head"><div><div class="eyebrow">04 · Lifecycle</div><h2>Follow the device.</h2></div><p>Only a fifth of discarded electronics is documented as formally recycled. The rest is handled informally, traded, or ends up in residual waste.</p></div>
+<div data-ig="life"><div class="panel flow"><div class="node"><span>E-WASTE GENERATED · 2022</span><strong>62 Mt</strong><small>7.8 kg per person, up 82% since 2010</small></div><div class="arrow">→</div><div class="node"><span>DOCUMENTED FORMAL RECYCLING</span><strong>13.8 Mt</strong><small>22.3% · 1.7 kg per person</small></div><div class="arrow">→</div><div class="fates"><div class="fate f-good"><b>13.8 Mt</b><small>Formally collected &amp; recycled (documented)</small></div><div class="fate"><b>16 Mt</b><small>Collected &amp; recycled outside formal systems, high/upper-middle-income countries</small></div><div class="fate f-bad"><b>18 Mt</b><small>Mostly informal handling in low/lower-middle-income countries</small></div><div class="fate f-bad"><b>14 Mt</b><small>Thrown in residual waste, mostly landfilled</small></div></div></div>
+<div class="stack" role="img" aria-label="Fate shares"><i style="flex:13.8;background:#0e8a8f"></i><i style="flex:16;background:#55a7c4"></i><i style="flex:18;background:#e0a93b"></i><i style="flex:14;background:#c0652a"></i></div>
+<div class="metal-flow"><div class="vcard"><b>31 Mt</b><span>metals contained</span></div><div class="vcard"><b>19 Mt</b><span>metals viably recovered</span></div><div class="vcard"><b>12 Mt</b><span>metals lost (non-compliant routes, process losses)</span></div><div class="vcard"><b>93 Mt CO₂e</b><span>avoided via recovery (41 Mt refrigerants, 52 Mt avoided mining)</span></div></div>
+<div class="notice">Global E-waste Monitor 2024 estimates for 2022, rounded. About 5.1 Mt (8.2%) crossed borders, of which ~3.3 Mt moved from high-income to middle- and low-income countries in uncontrolled, undocumented shipments. Non-compliant management releases ~58 t of mercury and ~45 kt of plastics containing brominated flame retardants every year.</div></div></div></section>
+
+<section class="section" id="map"><div class="wrap"><div class="head"><div><div class="eyebrow">05 · World map</div><h2>Where e-waste is generated and recycled.</h2></div><p>UNITAR estimates for the 22 UN geographic sub-regions from 2010 to 2022, extended with modelled values to 2025. Each country takes the colour of the sub-region it belongs to (UN M49).</p></div>
+<div class="panel mapbox" data-ig="map">
+<div class="map-controls">
+<div class="mpills" id="mapMetric" aria-label="Measure"><button class="mpill active" data-m="gen">E-waste generated</button><button class="mpill" data-m="pc">Per capita</button><button class="mpill" data-m="rec">Documented recycled</button><button class="mpill" data-m="rr">Recycling rate</button></div>
+<div class="map-toggles"><div class="switch" id="mapView" aria-label="Map mode"><button class="active" data-v="heat">Heatmap</button><button data-v="regions">Regions</button></div><div class="switch" id="mapScale" aria-label="Heatmap scale"><button class="active" data-s="abs">Value</button><button data-s="growth">Growth since 2010</button></div></div>
+</div>
+<div class="map-grid"><div class="map-wrap" id="mapWrap"><svg id="worldMap" viewBox="0 0 960 470" role="img" aria-label="World map of e-waste by UN sub-region"></svg><div class="map-tip" id="mapTip" hidden></div><div class="map-legend" id="mapLegend"></div></div><aside class="map-side" id="mapSide"></aside></div>
+<div class="timeline"><button class="play" id="mapPlay" aria-label="Play timeline">▶</button><input type="range" id="mapYear" min="2010" max="2025" step="1" value="2022" aria-label="Year"><div class="year-read"><b id="mapYearLabel">2022</b><span id="mapYearTag">UNITAR estimate</span></div></div>
+</div>
+<div class="notice">“Documented recycled” counts only e-waste formally collected and recycled in an environmentally sound way and reported to UNITAR; informal recycling is not included, so low values often mean <b>no documentation</b>, not zero activity. Some sub-regions (e.g. Western Africa, South-Eastern Asia, Pacific islands) have no documented recycling series. Recycling data end in 2022; values for 2023–2025 are modelled. Source: UN SDG Global Database, series EN_EWT_GENV, EN_EWT_GENPCAP, EN_EWT_RCYV and EN_EWT_RCYR (custodian: UNITAR); regions per UN M49.</div>
+</div></section>
+
+<section class="section" id="future"><div class="wrap"><div class="head"><div><div class="eyebrow">06 · Time</div><h2>From 34 Mt to 82 Mt.</h2></div><p>E-waste grows by about 2.6 Mt a year — almost five times faster than documented recycling. The Monitor projects 82 Mt by 2030, while the documented recycling rate slips to 20%.</p></div>
+<div class="panel" data-ig="trend"><svg class="trend" id="trend" viewBox="0 0 900 260" role="img" aria-label="Global e-waste generated and documented recycled, 2010 to 2030"></svg><div class="chart-key"><span><i style="background:var(--teal)"></i>Generated (solid: estimate, dashed: projection)</span><span><i style="background:var(--gold)"></i>Documented formally recycled</span></div></div>
+<div class="panel future" data-ig="future" style="margin-top:15px"><div class="year"><b>34 Mt</b><span>2010 · e-waste generated</span></div><div class="year"><b>62 Mt</b><span>2022 · e-waste generated</span></div><div class="year"><b>82 Mt</b><span>2030 · GEM 2024 projection</span></div></div>
+<div class="head" style="margin-top:50px"><div><div class="eyebrow">Regional lens</div><h2 style="font-size:36px">Who discards most — and recycles most.</h2></div><p>Per-capita e-waste rises with income. Europe generates the most per person and also documents the highest recycling rate; in Africa it is below 1%.</p></div>
+<div data-ig="regions"><div class="regions" id="regions"></div>
+<div class="notice">Continental values for 2022 from the Global E-waste Monitor 2024. Bars show the documented formal collection and recycling rate. Solar photovoltaic panel waste is projected to quadruple from 0.6 Mt (2022) to 2.4 Mt (2030).</div></div></div></section>
+
+<section class="section" id="sources"><div class="wrap"><div class="head"><div><div class="eyebrow">07 · Provenance</div><h2>Every number should be traceable.</h2></div><p>The data model retains source, version, unit, geography, method and modelled/reported status for every observation.</p></div><div class="sources">
+<a class="source" href="https://ewastemonitor.info/the-global-e-waste-monitor-2024/" target="_blank" rel="noopener"><b>PRIMARY · Global E-waste Monitor 2024 (UNITAR / ITU)</b><span>Baldé et al. 2024. Powers the clock, categories, materials, metal values, fates, regional lens and 2030 projection.</span></a>
+<a class="source" href="https://unstats.un.org/sdgs/dataportal" target="_blank" rel="noopener"><b>PRIMARY · UN SDG Global Database</b><span>Machine-readable indicator 12.4.2 / 12.5.1 series (EN_EWT_GENV, _GENPCAP, _RCYV, _RCYR), custodian UNITAR. Powers the world map and trend, 2010–2025.</span></a>
+<a class="source" href="https://unstats.un.org/unsd/methodology/m49/" target="_blank" rel="noopener"><b>REFERENCE · UN M49 standard</b><span>Defines the geographic sub-regions used to colour countries on the map.</span></a>
+<a class="source" href="https://globalewaste.org/" target="_blank" rel="noopener"><b>REFERENCE · Global E-waste Statistics Partnership</b><span>E-waste statistics guidelines and the UNU-KEYS / six-category classification used throughout.</span></a>
+<a class="source" href="https://commons.wikimedia.org/" target="_blank" rel="noopener"><b>IMAGES · Wikimedia Commons</b><span>Photos of representative e-waste in the Products and Materials sections, under Creative Commons licences; author and licence are credited with each photo.</span></a>
+<a class="source" href="https://ec.europa.eu/eurostat/web/waste/database" target="_blank" rel="noopener"><b>SUPPLEMENTAL · Eurostat WEEE statistics</b><span>Not yet used in displayed values. Planned for country-level EU collection, treatment and recovery by category.</span></a>
+<a class="source" href="https://www.basel.int/" target="_blank" rel="noopener"><b>SUPPLEMENTAL · Basel Convention</b><span>Not yet used in displayed values. Planned for transboundary movements of hazardous e-waste.</span></a>
+</div></div></section>
+
+<footer class="wrap foot">Prototype v0.1 · Source-first global e-waste explorer · Displayed values are UNITAR / Global E-waste Monitor estimates or model outputs unless otherwise labelled; values are rounded. · <a href="#about" style="color:inherit">About the atlas</a></footer>
+</div></template></div>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<script>
+/*DATA*/
+(function(){
+var host=document.getElementById('e-waste-atlas');
+if(!host.shadowRoot){var tpl=host.querySelector('template');host.attachShadow({mode:'open'}).appendChild(tpl.content);tpl.remove();}
+var root=host.shadowRoot,$=function(id){return root.getElementById(id)};
+function nf(v,d){return v.toLocaleString('en-US',{maximumFractionDigits:d||0,minimumFractionDigits:d||0})}
+
+/* ---------- clock ---------- */
+var annual=62e6,undoc=62e6*(1-0.223),SPD=86400,DPY=365;
+function tick(){var now=new Date(),start=Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),now.getUTCDate()),el=Math.max(0,(now-start)/1000);
+  $('wasteToday').innerHTML=nf(Math.floor(el*annual/(DPY*SPD)))+'<span>tonnes today</span>';
+  $('leakToday').textContent=nf(Math.floor(el*undoc/(DPY*SPD)))+' t';
+  $('wasteProgress').style.width=Math.min(100,el/SPD*100)+'%'}
+tick();setInterval(tick,250);
+
+/* ---------- categories (GEM 2024, 2022 values, Mt) ---------- */
+var IC={
+ temp:'<rect x="7" y="2" width="16" height="26" rx="2"/><path d="M7 11h16M11 6v2M11 15v4"/>',
+ screen:'<rect x="3" y="5" width="24" height="16" rx="2"/><path d="M11 26h8M15 21v5"/>',
+ lamp:'<path d="M15 3a8 8 0 0 0-5 14v3h10v-3a8 8 0 0 0-5-14zM11 24h8M12 27h6"/>',
+ large:'<rect x="5" y="2" width="20" height="26" rx="2"/><circle cx="15" cy="17" r="6"/><path d="M9 6h4"/>',
+ small:'<path d="M5 12h16v10a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4z"/><path d="M21 15h3a2 2 0 0 1 0 4h-3M9 4c0 2 2 2 2 4M14 4c0 2 2 2 2 4"/>',
+ it:'<rect x="9" y="2" width="12" height="26" rx="2.5"/><path d="M13 24h4"/>',
+ pv:'<path d="M4 22l4-14h14l4 14z"/><path d="M6 15h18M13 8l-1.5 14M17 8l1.5 14"/>'};
+var cats=[
+ ['small','Small equipment',20.4,2.4,'Vacuum cleaners, microwaves, toasters, kettles, shavers, toys, video cameras, e-cigarettes','The largest stream by mass — almost one-third of global e-waste — and one of the least recycled, because small items slip easily into household bins.','Copper in cables and circuit boards (~1 Mt in 2022); 44% of the aluminium in e-waste','An estimated 844 million vapes were sold in 2022; each contains a lithium-ion battery and a circuit board.'],
+ ['large','Large equipment',15.1,5.1,'Washing machines, dryers, dishwashers, electric stoves, large printers and copiers','Heavy, steel-rich appliances that are relatively easy to collect, giving one of the highest documented recycling rates.','Iron / steel, aluminium, copper in motors and wiring','Excludes photovoltaic panels, shown separately.'],
+ ['temp','Temperature exchange equipment',13.3,3.6,'Refrigerators, freezers, air conditioners, heat pumps','Cooling and freezing equipment whose refrigerants and insulating foam blowing agents are ozone-depleting or potent greenhouse gases.','Steel, copper in compressors and cables (~0.5 Mt), refrigerants, PUR foam','Recapturing refrigerants avoided an estimated 41 Mt CO₂e in 2022.'],
+ ['screen','Screens & monitors',5.9,1.5,'Televisions, monitors, laptops, notebooks and tablets','Display devices; older CRT and LCD units contain lead glass or mercury backlights, and their plastic housings often carry flame retardants.','Glass, plastics, indium (ITO), aluminium, printed circuit boards','About 80% of flame retardants in e-waste plastics are found in screens and monitors.'],
+ ['it','Small IT & telecom',4.6,1.0,'Mobile phones, GPS devices, routers, personal computers, printers, telephones','Small but metal-rich devices; printed circuit boards make them the main carrier of precious metals.','Gold, silver, palladium, copper, cobalt in batteries, rare-earth magnets','Figure 4 of the Monitor rounds this category to 4.9 Mt; the 4.6 Mt infographic value is used here.'],
+ ['lamps','Lamps',1.9,0.1,'Fluorescent lamps, high-intensity discharge lamps, LED lamps','The least recycled category. Fluorescent and discharge lamps contain mercury that is released if they are broken or landfilled.','Glass, aluminium, mercury, rare-earth phosphors (yttrium, europium, terbium)','Only ~5% of lamp waste is documented as formally collected and recycled.'],
+ ['pv','Photovoltaic panels',0.6,0.1,'On- and off-grid solar panels, including small off-grid solar products','Small today but the fastest-growing stream as the first generations of solar panels reach end of life (~22-year lifespan).','Glass, aluminium frames, silicon, silver, copper','Projected to quadruple to 2.4 Mt by 2030.']];
+var cg=$('catgrid'),cd=$('catDetail'),TOT=62;
+function icon(k){return '<svg class="ico" viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+IC[k]+'</svg>'}
+cats.forEach(function(c,i){c.icon=c[0]==='lamps'?'lamp':c[0]});
+cg.innerHTML=cats.map(function(c,i){return '<button class="tile" data-i="'+i+'">'+icon(c.icon)+'<b>'+c[1]+'</b><em>'+c[2]+' Mt · '+Math.round(c[2]/TOT*100)+'%</em><small>'+Math.round(c[3]/c[2]*100)+'% documented recycled</small></button>'}).join('');
+function showCat(i){var c=cats[i],rr=Math.round(c[3]/c[2]*100);
+ cg.querySelectorAll('.tile').forEach(function(b){b.classList.toggle('active',+b.dataset.i===i)});
+ cd.innerHTML='<div class="eyebrow">Selected category</div><h3>'+c[1]+'</h3><div class="big">'+c[2]+'<small>Mt · 2022</small></div><div style="color:var(--muted)">'+Math.round(c[2]/TOT*100)+'% of global e-waste generated</div>'+photo(CATIMG[c[0]])+
+ '<div class="rate"><span>Documented formal recycling</span><b>'+c[3]+' Mt · '+rr+'%</b></div><div class="barline"><i style="width:'+rr+'%"></i></div>'+
+ '<p>'+c[5]+'</p><div class="facts"><div class="eyebrow">Inside</div><dl><dt>Examples</dt><dd>'+c[4]+'</dd><dt>Key materials</dt><dd>'+c[6]+'</dd><dt>Note</dt><dd>'+c[7]+'</dd></dl><p class="facts-note">Global E-waste Monitor 2024, values for 2022. Categories follow the UN harmonised six-category e-waste classification.</p></div>'}
+cg.querySelectorAll('.tile').forEach(function(b){b.onclick=function(){showCat(+b.dataset.i);if(matchMedia('(max-width:880px)').matches)cd.scrollIntoView({behavior:'smooth',block:'start'})}});
+showCat(0);
+function chart(mode){var h='',mx=mode==='rate'?100:d3.max(cats,function(c){return c[2]});
+ cats.forEach(function(c){var rr=c[3]/c[2]*100;
+  if(mode==='rate')h+='<div class="col"><div class="val"><b>'+Math.round(rr)+'%</b></div><div class="bar" style="height:'+Math.max(6,rr/50*210)+'px;background:linear-gradient(#f0c36b,#e0a93b)"></div><div class="lab">'+c[1]+'</div></div>';
+  else h+='<div class="col"><div class="val"><b>'+c[2]+'</b> / '+c[3]+'</div><div class="bar" style="height:'+Math.max(6,c[2]/mx*210)+'px"><i style="height:'+(c[3]/c[2]*100)+'%"></i></div><div class="lab">'+c[1]+'</div></div>'});
+ $('chart').innerHTML=h;
+ $('chartKey').innerHTML=mode==='rate'?'<span><i style="background:var(--gold)"></i>Share of each category documented as formally collected and recycled · global average 22.3%</span>':'<span><i style="background:var(--teal)"></i>Generated (Mt)</span><span><i style="background:var(--gold)"></i>Documented formally recycled (Mt)</span>'}
+chart('mass');
+root.querySelectorAll('#catSwitch button').forEach(function(b){b.onclick=function(){root.querySelectorAll('#catSwitch button').forEach(function(x){x.classList.toggle('active',x===b)});chart(b.dataset.mode)}});
+
+/* ---------- elements (GEM 2024, mass in 2022 e-waste) ---------- */
+// [symbol, name, Z, quantity label, short, where found, why it matters, status/recovery, tags]
+var els=[
+ ['Fe','Iron / steel',26,'24 Mt','~24 Mt','Housings, frames and chassis of appliances; drums, compressors, cabinets.','By far the most abundant metal in e-waste, worth ~US$16 billion in 2022.','The most successfully recovered metal: steel scrap is easily separated magnetically and remelted.',[]],
+ ['Al','Aluminium',13,'3.9 Mt','3.9 Mt','Heat sinks, casings, frames of laptops and solar panels, capacitors.','Listed as a critical raw material by the EU; ~44% of the aluminium in e-waste sits in small equipment.','Readily recycled when separated, but often lost in shredder residues of small devices.',['crm']],
+ ['Cu','Copper',29,'2.1 Mt','2.1 Mt','Cables, printed-circuit-board traces, motors, transformers and compressors.','The single most valuable material in e-waste: ~US$19 billion in 2022. Recovered copper accounts for ~50% of the ore excavation avoided by recycling.','High recovery in copper-route smelters; cable burning in informal recycling releases dioxins.',[]],
+ ['Ag','Silver',47,'1,200 t','1,200 t','Solder, switch contacts, PCBs, conductive pastes in solar cells.','The largest precious metal by mass in e-waste.','Recoverable at high rates in smelters after pre-treatment; losses occur when boards are shredded with bulk waste.',[]],
+ ['Au','Gold',79,'270 t','270 t','Connector and contact plating, bonding wires, printed circuit boards.','Worth ~US$15 billion in 2022. Producing 1 kg of primary gold requires mining about 3 million kg of ore.','Precious metals overall: only ~300 t of the 1,600 t present were viably recovered.',[]],
+ ['Pd','Palladium',46,'121 t','121 t','Multilayer ceramic capacitors and connectors on circuit boards.','Platinum-group metal and EU critical raw material; ~121 t of the ~130 t of PGMs in e-waste.','Recycling can exceed 95% when boards are processed in copper-route smelters.',['crm']],
+ ['Co','Cobalt',27,'34 kt','34 kt','Cathodes of lithium-ion batteries in phones, laptops, tools and e-cigarettes.','Critical metal with highly concentrated primary supply.','Battery recycling capacity is growing, but loose batteries in e-waste are a fire hazard during collection and shredding.',['crm']],
+ ['Nd','Neodymium',60,'7.2 kt','7.2 kt','NdFeB permanent magnets in hard drives, speakers, headphones and motors.','The largest rare earth in e-waste (of ~12 kt rare earths in total), essential for wind turbines and e-mobility.','Hardly recovered: rare-earth recycling meets ~1% of demand; magnet separation is costly.',['crm']],
+ ['Y','Yttrium',39,'1.8 kt','1.8 kt','Phosphors in fluorescent lamps and older displays.','Second-largest rare earth in e-waste.','Practically not recovered from e-waste today.',['crm']],
+ ['Hg','Mercury',80,'58 t / yr','58 t/yr','Fluorescent and discharge lamps, CCFL backlights of older LCD screens, switches and relays.','A potent neurotoxin. Quantity shown is the mercury <b>released</b> each year through non-compliant e-waste management.','Must be captured in controlled lamp and screen treatment; regulated under the Minamata Convention.',['hz']]];
+var eg=$('elgrid'),ed=$('elDetail');
+function photo(p){if(!p)return '';return '<figure class="el-photo" style="margin-left:0;margin-right:0"><img src="'+p.src+'" alt="'+p.cap.replace(/"/g,'&quot;')+'" width="640" height="360"><figcaption>'+p.cap+'<span class="cr">Photo: '+p.artist+' · <a href="'+p.page+'" target="_blank" rel="noopener">Wikimedia Commons</a> · '+(p.licUrl?'<a href="'+p.licUrl+'" target="_blank" rel="noopener">'+p.lic+'</a>':p.lic)+'</span></figcaption></figure>'}
+eg.innerHTML=els.map(function(e,i){var hz=e[8].indexOf('hz')>=0;return '<button class="el'+(hz?' hz':'')+'" data-i="'+i+'"><span class="z">'+e[2]+'</span><span class="sym">'+e[0]+'</span><span class="nm">'+e[1]+'</span><span class="q">'+e[4]+'</span></button>'}).join('');
+function showEl(i){var e=els[i],hz=e[8].indexOf('hz')>=0;
+ eg.querySelectorAll('.el').forEach(function(b){b.classList.toggle('active',+b.dataset.i===i)});
+ var tags=(hz?'<span class="tag hz">Hazardous</span>':'<span class="tag">Recoverable resource</span>')+(e[8].indexOf('crm')>=0?'<span class="tag crm">EU critical raw material</span>':'');
+ ed.innerHTML='<div class="eyebrow">Selected element</div><div class="symbig"><div class="symbox'+(hz?' hz':'')+'"><span>'+e[2]+'</span><b>'+e[0]+'</b></div><div><h3 style="margin:0 0 6px">'+e[1]+'</h3><div class="tags">'+tags+'</div></div></div>'+
+ '<div class="big"'+(hz?' style="color:#b3412f"':'')+'>'+e[3]+'</div><div style="color:var(--muted)">'+(hz?'released to the environment per year':'contained in global e-waste · 2022')+'</div>'+photo(ELIMG[e[0]])+
+ '<p>'+e[6]+'</p><div class="facts"><div class="eyebrow">In devices</div><dl><dt>Found in</dt><dd>'+e[5]+'</dd><dt>Recovery</dt><dd>'+e[7]+'</dd><dt>Atomic no.</dt><dd>'+e[2]+'</dd></dl><p class="facts-note">Quantities from the Global E-waste Monitor 2024 (chapter 6 and environmental impacts). Device uses are typical applications.</p></div>'}
+eg.querySelectorAll('.el').forEach(function(b){b.onclick=function(){showEl(+b.dataset.i);if(matchMedia('(max-width:880px)').matches)ed.scrollIntoView({behavior:'smooth',block:'start'})}});
+showEl(2);
+
+/* ---------- regional lens ---------- */
+var conts=[['Europe',17.6,42.8,13.1],['Oceania',16.1,41.4,0.7],['Americas',14.1,30,14.4],['Asia',6.4,11.8,30.1],['Africa',2.5,0.7,3.6]];
+$('regions').innerHTML=conts.map(function(c){return '<div class="reg"><b>'+c[1]+' kg</b><span>per person · '+c[0]+'</span><div class="barline"><i style="width:'+Math.max(2,c[2])+'%"></i></div><span><b style="display:inline;font-size:12px;color:var(--text)">'+c[2]+'%</b> documented recycled · '+c[3]+' Mt</span></div>'}).join('');
+
+/* ---------- global trend ---------- */
+(function(){var W=900,H=260,pl=44,pr=70,pt=18,pb=28,svg=$('trend');
+ var gen=[],rec=[];for(var y=EW.y0;y<=EW.y1;y++){var g=EW.w.gen[y-EW.y0],r=EW.w.rec[y-EW.y0];if(g!=null)gen.push([y,g/1000]);if(r!=null)rec.push([y,r/1000])}
+ var x=d3.scaleLinear().domain([2010,2030]).range([pl,W-pr]),yy=d3.scaleLinear().domain([0,90]).range([H-pb,pt]);
+ var L=d3.line().x(function(p){return x(p[0])}).y(function(p){return yy(p[1])});
+ var hist=gen.filter(function(p){return p[0]<=2022}),proj=gen.filter(function(p){return p[0]>=2022}).concat([[2030,82]]);
+ var area=d3.area().x(function(p){return x(p[0])}).y0(yy(0)).y1(function(p){return yy(p[1])});
+ var h='';[0,20,40,60,80].forEach(function(t){h+='<line class="ax" x1="'+pl+'" x2="'+(W-pr)+'" y1="'+yy(t)+'" y2="'+yy(t)+'" opacity="'+(t?0.5:1)+'"/><text x="'+(pl-8)+'" y="'+(yy(t)+4)+'" text-anchor="end">'+t+(t===80?' Mt':'')+'</text>'});
+ [2010,2015,2020,2022,2025,2030].forEach(function(t){h+='<text x="'+x(t)+'" y="'+(H-8)+'" text-anchor="middle">'+t+'</text>'});
+ h+='<path class="area" d="'+area(hist)+'"/><path class="gen" d="'+L(hist)+'"/><path class="genp" d="'+L(proj)+'"/><path class="rec" d="'+L(rec)+'"/>';
+ h+='<circle cx="'+x(2022)+'" cy="'+yy(61.9)+'" r="4.5" fill="#0e8a8f"/><text class="lbl" x="'+(x(2022)-8)+'" y="'+(yy(61.9)-10)+'" text-anchor="end">62 Mt</text>';
+ h+='<circle cx="'+x(2030)+'" cy="'+yy(82)+'" r="4.5" fill="#fff" stroke="#0e8a8f" stroke-width="2.5"/><text class="lbl" x="'+(x(2030)+10)+'" y="'+(yy(82)+4)+'">82 Mt</text>';
+ h+='<circle cx="'+x(2022)+'" cy="'+yy(13.8)+'" r="4.5" fill="#e0a93b"/><text class="lbl" x="'+(x(2022)+10)+'" y="'+(yy(13.8)-8)+'">13.8 Mt recycled</text>';
+ h+='<circle cx="'+x(2010)+'" cy="'+yy(34.2)+'" r="4" fill="#0e8a8f"/><text class="lbl" x="'+(x(2010)+8)+'" y="'+(yy(34.2)-10)+'">34 Mt</text>';
+ svg.innerHTML=h})();
+
+/* ---------- map ---------- */
+var mapEl=$('worldMap');
+var RCOL={15:'#d9a441',14:'#b8926a',17:'#8f6b48',18:'#e3c27a',11:'#c98a3e',21:'#e07a5f',13:'#f2a65a',29:'#f6c78e',5:'#c4553a',143:'#7cc47c',30:'#d64545',35:'#3fae88',34:'#ff9f68',145:'#a8c66c',151:'#5fa8a3',154:'#5b8def',39:'#98b9ff',155:'#2f5fb3',53:'#b09cf5',54:'#d98bd9',57:'#c7b8f5',61:'#8c7ae6'};
+var ORDER=[21,13,29,5,154,155,39,151,15,11,14,17,18,145,143,34,30,35,53,54,57,61];
+var NAME2SUB={'N. Cyprus':145,'Somaliland':14,'Kosovo':39};
+var MET={gen:'E-waste generated',pc:'E-waste generated per capita',rec:'Documented formally recycled',rr:'Documented recycling rate'};
+var D=EW,Y0=D.y0,Y1=D.y1;
+var S={m:'gen',view:'heat',scale:'abs',year:2022,sel:null,timer:null};
+var heat=['#e6f4f1','#a7dccf','#4fb3a9','#1d7f8a','#163f63'];
+var wrap=$('mapWrap'),tip=$('mapTip'),side=$('mapSide'),legend=$('mapLegend'),slider=$('mapYear'),playBtn=$('mapPlay');
+function rawR(r,m,y){var s=D.r[r]&&D.r[r][m];if(!s)return null;var v=s[y-Y0];return v==null?null:v}
+function get(r,m,y){if(r)return rawR(r,m,y);var v=D.w[m]&&D.w[m][y-Y0];return v==null?null:v}
+function startYear(r){for(var y=Y0;y<=Y1;y++){var v=get(r,S.m,y);if(v!=null&&v>0)return y}return null}
+function value(r,y){var v=get(r,S.m,y);if(v==null)return null;if(S.scale==='growth'){var sy=startYear(r);var b=sy!=null?get(r,S.m,sy):null;return b?v/b:null}return v}
+function fmt(v){if(v==null)return 'No documented data';
+ if(S.scale==='growth')return '×'+(v<10?v.toFixed(1):Math.round(v));
+ if(S.m==='pc')return v.toFixed(1)+' kg';
+ if(S.m==='rr')return (v>0&&v<1?v.toFixed(1):Math.round(v))+'%';
+ if(v===0)return '0';return v>=1000?(v/1000).toFixed(v>=10000?0:1)+' Mt':(v<10?v.toFixed(1):Math.round(v))+' kt'}
+function interp(t){t=Math.max(0,Math.min(1,t))*(heat.length-1);var i=Math.min(heat.length-2,Math.floor(t));return d3.interpolateRgb(heat[i],heat[i+1])(t-i)}
+var scaleFn;
+function buildScale(){var lo=Infinity,hi=-Infinity;
+ ORDER.forEach(function(r){for(var y=Y0;y<=Y1;y++){var v=value(r,y);if(v!=null&&isFinite(v)){lo=Math.min(lo,v);hi=Math.max(hi,v)}}});
+ if(S.scale==='growth'){var l=Math.max(0.5,lo),s=d3.scaleLog().domain([l,Math.max(hi,l*2)]).clamp(true);scaleFn=function(v){return s(Math.max(l,v))};scaleFn.lo=l;scaleFn.hi=hi;return}
+ var sc=(S.m==='gen'||S.m==='rec'?d3.scaleSqrt():d3.scaleLinear()).domain([0,hi]).clamp(true);scaleFn=function(v){return sc(v)};scaleFn.lo=0;scaleFn.hi=hi}
+function tag(y){var obsEnd=(S.m==='rec'||S.m==='rr')?2022:D.lastObs;return y>obsEnd?'UNITAR modelled value':'UNITAR estimate'}
+var svg=d3.select(mapEl),g=svg.append('g'),paths;
+function colorFor(r){if(!r)return '#dfe6e9';if(S.view==='regions')return RCOL[r];var v=value(r,S.year);return v==null?'#e3eaed':interp(scaleFn(v))}
+function paint(anim){
+ (anim?paths.transition().duration(160):paths).attr('fill',function(d){return colorFor(d.r)});
+ paths.classed('sel',function(d){return S.sel&&d.r===S.sel});
+ $('mapYearLabel').textContent=S.year;
+ var noRec=S.view==='heat'&&(S.m==='rec'||S.m==='rr')&&S.year>2022;
+ $('mapYearTag').textContent=S.view==='regions'?'UN M49 sub-regions':noRec?'No recycling data after 2022':tag(S.year);
+ slider.value=S.year;drawLegend();drawSide()}
+function drawLegend(){
+ if(S.view==='regions'){legend.innerHTML='<div class="rleg">'+ORDER.map(function(r){return '<button data-r="'+r+'"><i style="background:'+RCOL[r]+'"></i>'+SUBN[r]+'</button>'}).join('')+'</div>';
+  legend.querySelectorAll('button').forEach(function(b){b.onclick=function(){select(+b.dataset.r)}});return}
+ var stops=[];for(var i=0;i<=10;i++)stops.push(interp(i/10)+' '+(i*10)+'%');
+ var lab=S.scale==='growth'?'Growth since first year of data':S.m==='pc'?'Kilograms per person per year':S.m==='rr'?'Share of e-waste generated that is documented as formally recycled':'Tonnes per year';
+ legend.innerHTML='<span>'+fmt(scaleFn.lo)+'</span><i class="lbar" style="background:linear-gradient(90deg,'+stops.join(',')+')"></i><span>'+fmt(scaleFn.hi)+'</span><span class="nd"><i></i>No documented data</span><em>'+lab+'</em>'}
+function spark(r){var W=280,H=110,pl=6,pr=6,pt=14,pb=18,pts=[];
+ for(var y=Y0;y<=Y1;y++){var v=value(r,y);if(v!=null)pts.push([y,v])}
+ if(pts.length<2)return '<p class="ms-sub" style="margin-top:12px">No documented time series for this measure.</p>';
+ var mx=d3.max(pts,function(p){return p[1]})||1,mn=S.scale==='growth'?Math.min(1,d3.min(pts,function(p){return p[1]})):0;
+ var x=d3.scaleLinear().domain([Y0,Y1]).range([pl,W-pr]),yy=d3.scaleLinear().domain([mn,mx]).range([H-pb,pt]);
+ var line=d3.line().x(function(p){return x(p[0])}).y(function(p){return yy(p[1])});
+ var split=D.lastObs,hist=pts.filter(function(p){return p[0]<=split}),proj=pts.filter(function(p){return p[0]>=split});
+ var cur=value(r,S.year);
+ return '<svg class="spark" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Trend '+Y0+' to '+Y1+'"><line x1="'+pl+'" x2="'+(W-pr)+'" y1="'+(H-pb)+'" y2="'+(H-pb)+'" class="ax"/>'+
+  '<line x1="'+x(split)+'" x2="'+x(split)+'" y1="'+pt+'" y2="'+(H-pb)+'" class="split"/>'+
+  (hist.length>1?'<path d="'+line(hist)+'" class="hist"/>':'')+(proj.length>1?'<path d="'+line(proj)+'" class="proj"/>':'')+
+  '<line x1="'+x(S.year)+'" x2="'+x(S.year)+'" y1="'+pt+'" y2="'+(H-pb)+'" class="now"/>'+(cur!=null?'<circle cx="'+x(S.year)+'" cy="'+yy(cur)+'" r="4" class="dot"/>':'')+
+  '<text x="'+pl+'" y="10">'+fmt(mx)+'</text><text x="'+pl+'" y="'+(H-4)+'">'+Y0+'</text><text x="'+x(split)+'" y="'+(H-4)+'" text-anchor="middle">'+split+'</text><text x="'+(W-pr)+'" y="'+(H-4)+'" text-anchor="end">'+Y1+'</text></svg>'}
+function drawSide(){var r=S.sel,v=value(r,S.year),name=r?SUBN[r]:'World';
+ var sub=MET[S.m]+(S.scale==='growth'?' · vs '+startYear(r):'');
+ var extra='';
+ if(r&&S.scale==='abs'&&v!=null&&(S.m==='gen'||S.m==='rec')){var w=get(null,S.m,S.year);if(w)extra='<div class="ms-share">'+(v/w*100<1?(v/w*100).toFixed(1):Math.round(v/w*100))+'% of the world total</div>'}
+ if(r&&D.r[r]&&S.m==='gen'){var pc=rawR(r,'pc',S.year);if(pc!=null)extra+='<div class="ms-sub">'+pc.toFixed(1)+' kg per person</div>'}
+ var rows=ORDER.map(function(c){return [c,value(c,S.year)]}).filter(function(x){return x[1]!=null}).sort(function(a,b){return b[1]-a[1]}).slice(0,5);
+ var top=rows.length?'<h4>'+(S.scale==='abs'&&(S.m==='gen'||S.m==='rec')?'Largest':'Highest')+' in '+S.year+'</h4>'+rows.map(function(x){return '<button class="trow'+(x[0]===r?' on':'')+'" data-r="'+x[0]+'"><span>'+SUBN[x[0]]+'</span><b>'+fmt(x[1])+'</b><i style="width:'+Math.max(3,x[1]/rows[0][1]*100)+'%"></i></button>'}).join(''):'';
+ side.innerHTML='<label class="ms-pick">Sub-region<select id="mapSel"><option value="">World</option>'+ORDER.map(function(c){return '<option value="'+c+'"'+(c===r?' selected':'')+'>'+SUBN[c]+'</option>'}).join('')+'</select></label>'+
+  '<div class="ms-value">'+fmt(v)+'</div><div class="ms-sub">'+sub+' · '+S.year+'</div>'+extra+spark(r)+
+  '<div class="ms-key"><span class="k-h"></span>Estimate <span class="k-p"></span>Modelled</div><div class="ms-top">'+top+'</div>';
+ $('mapSel').onchange=function(){select(this.value?+this.value:null)};
+ side.querySelectorAll('.trow').forEach(function(b){b.onclick=function(){select(+b.dataset.r)}})}
+function select(r){S.sel=r;paint(false)}
+function setYear(y){S.year=Math.max(Y0,Math.min(Y1,y));paint(true)}
+function syncButtons(){root.querySelectorAll('#mapScale button').forEach(function(b){b.classList.toggle('active',b.dataset.s===S.scale)});
+ var gb=root.querySelector('#mapScale [data-s="growth"]');gb.disabled=S.m==='rr';if(S.m==='rr'&&S.scale==='growth')S.scale='abs',syncButtons();
+ $('mapScale').style.display=S.view==='heat'?'':'none'}
+root.querySelectorAll('#mapMetric .mpill').forEach(function(b){b.onclick=function(){
+ root.querySelectorAll('#mapMetric .mpill').forEach(function(x){x.classList.toggle('active',x===b)});
+ S.m=b.dataset.m;if(S.view==='regions'){S.view='heat';root.querySelectorAll('#mapView button').forEach(function(x){x.classList.toggle('active',x.dataset.v==='heat')})}
+ syncButtons();buildScale();paint(false)}});
+root.querySelectorAll('#mapView button').forEach(function(b){b.onclick=function(){root.querySelectorAll('#mapView button').forEach(function(x){x.classList.toggle('active',x===b)});S.view=b.dataset.v;syncButtons();paint(false)}});
+root.querySelectorAll('#mapScale button').forEach(function(b){b.onclick=function(){if(b.disabled)return;S.scale=b.dataset.s;syncButtons();buildScale();paint(false)}});
+slider.oninput=function(){stop();setYear(+slider.value)};
+function stop(){if(S.timer){clearInterval(S.timer);S.timer=null;playBtn.textContent='▶';playBtn.setAttribute('aria-label','Play timeline')}}
+playBtn.onclick=function(){if(S.timer)return stop();if(S.year>=Y1)S.year=Y0;
+ playBtn.textContent='❚❚';playBtn.setAttribute('aria-label','Pause timeline');
+ S.timer=setInterval(function(){if(S.year>=Y1)return stop();setYear(S.year+1)},380)};
+function showTip(ev,d){if(!d.r){tip.hidden=true;return}
+ tip.innerHTML='<b>'+d.n+'</b><span>'+SUBN[d.r]+'</span>'+(S.view==='regions'?'':'<span>'+fmt(value(d.r,S.year))+' · '+S.year+'</span>');
+ var box=wrap.getBoundingClientRect(),x=ev.clientX-box.left,y=ev.clientY-box.top;
+ tip.hidden=false;tip.style.left=Math.max(4,Math.min(x+14,box.width-tip.offsetWidth-4))+'px';tip.style.top=Math.max(4,y-tip.offsetHeight-10)+'px'}
+fetch('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json').then(function(r){return r.json()}).then(function(topo){
+ var feats=topojson.feature(topo,topo.objects.countries).features.filter(function(f){return f.properties.name!=='Antarctica'});
+ feats.forEach(function(f){f.r=ID2SUB[f.id]||NAME2SUB[f.properties.name]||null;f.n=f.properties.name});
+ var proj=d3.geoNaturalEarth1().fitExtent([[6,6],[954,464]],{type:'FeatureCollection',features:feats}),gp=d3.geoPath(proj);
+ paths=g.selectAll('path').data(feats).enter().append('path').attr('d',gp).attr('class','country')
+  .on('mousemove',function(ev,d){showTip(ev,d)}).on('mouseleave',function(){tip.hidden=true})
+  .on('click',function(ev,d){ev.stopPropagation();if(d.r)select(S.sel===d.r?null:d.r)});
+ svg.on('click',function(){select(null)});
+ syncButtons();buildScale();paint(false);
+}).catch(function(e){console.error(e);wrap.innerHTML='<p class="map-err">The map could not be loaded. It needs an internet connection to fetch the world outlines.</p>'});
+
+/* ---------- download infographics as PDF / JPEG ---------- */
+var LAB_URL='https://w2r-lab.vercel.app/';
+var GEM='Source: Global E-waste Monitor 2024 (Baldé et al., UNITAR / ITU), values for 2022 unless stated; rounded.';
+var SDG='Source: UN SDG Global Database, indicators 12.4.2 / 12.5.1 (custodian UNITAR); regions per UN M49. 2023–2025 values are modelled.';
+function activeName(sel,list,idx){var b=root.querySelector(sel+'.active');return b?list[+b.dataset.i][idx]:''}
+var IG={
+ clock:{t:function(){return 'E-waste clock'},s:function(){return 'Accumulation today at the 2022 rate of 62 Mt per year · exported '+new Date().toUTCString().slice(0,22)+' UTC'},src:GEM+' Illustrative rate conversion, not a real-time measurement.'},
+ kpis:{t:function(){return 'Global e-waste at a glance'},s:function(){return 'Key figures, 2022 and 2030 projection'},src:GEM},
+ cats:{t:function(){return 'What becomes e-waste? · '+activeName('#catgrid .tile',cats,1)},s:function(){return 'E-waste generated and documented as formally recycled, by product category, 2022'},src:GEM},
+ catchart:{t:function(){return 'E-waste by product category'},s:function(){var m=root.querySelector('#catSwitch .active');return (m&&m.dataset.mode==='rate'?'Documented formal recycling rate':'Generated vs. documented formally recycled (Mt)')+', 2022'},src:GEM},
+ comp:{t:function(){return 'What is e-waste made of?'},s:function(){return 'Material composition and metal value of the 62 Mt of e-waste generated in 2022'},src:GEM},
+ els:{t:function(){return 'Elements in e-waste · '+activeName('#elgrid .el',els,1)},s:function(){return 'Mass contained in global e-waste, 2022 (mercury: mass released per year)'},src:GEM},
+ life:{t:function(){return 'Where e-waste goes'},s:function(){return 'Fate of the 62 Mt of e-waste generated in 2022, metal recovery and avoided emissions'},src:GEM},
+ map:{t:function(){return MET[S.m]+' · '+S.year+(S.sel?' · '+SUBN[S.sel]:'')},s:function(){return S.view==='regions'?'UN M49 geographic sub-regions':(S.scale==='growth'?'Growth since first year of data, ':'')+'by UN sub-region · '+tag(S.year)},src:SDG},
+ trend:{t:function(){return 'Global e-waste, 2010–2030'},s:function(){return 'E-waste generated and documented as formally recycled (Mt)'},src:SDG+' 2030 projection: Global E-waste Monitor 2024.'},
+ future:{t:function(){return 'From 34 Mt to 82 Mt'},s:function(){return 'Global e-waste generated, 2010, 2022 and 2030 projection'},src:GEM},
+ regions:{t:function(){return 'E-waste by continent, 2022'},s:function(){return 'Generation per person and documented formal recycling rate'},src:GEM}};
+var DLI='<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v8M4.5 6.5 8 10l3.5-3.5M2.5 13.5h11"/></svg>';
+root.querySelectorAll('[data-ig]').forEach(function(el){var k=el.dataset.ig,row=document.createElement('div');
+ row.className='dl-row'+(k==='kpis'?' kp':'');row.innerHTML='<span>Download</span><button type="button" data-f="pdf" aria-label="Download '+IG[k].t().replace(/"/g,'')+' as PDF">'+DLI+'PDF</button><button type="button" data-f="jpg" aria-label="Download as JPEG">'+DLI+'JPEG</button>';
+ el.parentNode.insertBefore(row,el);
+ row.querySelectorAll('button').forEach(function(b){b.onclick=function(){exportIG(el,k,b.dataset.f,row)}})});
+
+var libs={};
+function loadScript(u){return libs[u]||(libs[u]=new Promise(function(ok,bad){var s=document.createElement('script');s.src=u;s.onload=ok;s.onerror=function(){delete libs[u];bad(new Error('Could not load '+u))};document.head.appendChild(s)}))}
+function loadImg(src){return new Promise(function(ok,bad){var i=new Image();i.onload=function(){ok(i)};i.onerror=bad;i.src=src})}
+function toDataURL(blob){return new Promise(function(ok){var r=new FileReader();r.onload=function(){ok(r.result)};r.readAsDataURL(blob)})}
+var fontCSS=null;
+function getFontCSS(){ // embed the latin Figtree subset so exported files keep the page typeface
+ return fontCSS||(fontCSS=fetch('https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&display=swap').then(function(r){return r.text()}).then(function(css){
+  var blocks=(css.match(/@font-face\s*{[^}]*}/g)||[]).filter(function(b){return /U\+0000-00FF/.test(b)});
+  return Promise.all(blocks.map(function(b){var m=b.match(/url\(([^)]+)\)/);if(!m)return b;
+   return fetch(m[1].replace(/['"]/g,'')).then(function(r){return r.blob()}).then(toDataURL).then(function(d){return b.replace(m[0],'url('+d+')')})})).then(function(a){return a.join('\n')})
+ }).catch(function(){return ''}))}
+function slug(s){return s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60)}
+function wrapText(ctx,text,maxW){var words=text.split(' '),lines=[],line='';words.forEach(function(w){var t=line?line+' '+w:w;if(ctx.measureText(t).width>maxW&&line){lines.push(line);line=w}else line=t});if(line)lines.push(line);return lines}
+function toast(msg){var t=document.createElement('div');t.className='dl-toast';t.textContent=msg;root.querySelector('.pa').appendChild(t);setTimeout(function(){t.remove()},3200)}
+function save(href,name){var a=document.createElement('a');a.href=href;a.download=name;document.body.appendChild(a);a.click();a.remove()}
+
+function compose(el,k){
+ var F='Figtree, system-ui, sans-serif';
+ return Promise.all([loadScript('https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js'),getFontCSS(),document.fonts.ready,loadImg(LOGO_W2R),loadImg(LOGO_TECHNION)]).then(function(r){
+  var css=r[1],badge=r[3],tech=r[4];
+  var opts={pixelRatio:2,backgroundColor:'#eaf3f6',filter:function(n){return !(n.classList&&(n.classList.contains('map-tip')||n.classList.contains('timeline')||n.classList.contains('dl-row')||n.classList.contains('map-controls')||n.classList.contains('ms-pick')||n.classList.contains('switch')))}};
+  if(css)opts.fontEmbedCSS=css;else opts.skipFonts=true;
+  return htmlToImage.toCanvas(el,opts).then(function(img){
+   var P=2,pad=40,cw=img.width/P,ch=img.height/P,W=Math.max(cw+pad*2,720),title=IG[k].t(),sub=IG[k].s();
+   var m=document.createElement('canvas').getContext('2d');
+   m.font='800 30px '+F;var tl=wrapText(m,title,W-pad*2);m.font='12px '+F;var sl=wrapText(m,IG[k].src,W-pad*2);
+   var headH=pad+18+tl.length*36+26,srcH=sl.length*17+22,footH=92,H=headH+ch+18+srcH+footH;
+   var c=document.createElement('canvas');c.width=W*P;c.height=H*P;var x=c.getContext('2d');x.scale(P,P);
+   x.fillStyle='#eaf3f6';x.fillRect(0,0,W,H);x.textBaseline='alphabetic';
+   x.fillStyle='#0e8a8f';x.font='800 12px '+F;if('letterSpacing' in x)x.letterSpacing='2px';x.fillText('E-WASTE ATLAS · W2R LAB',pad,pad+10);if('letterSpacing' in x)x.letterSpacing='0px';
+   x.fillStyle='#10293a';x.font='800 30px '+F;tl.forEach(function(l,i){x.fillText(l,pad,pad+18+30+i*36)});
+   x.fillStyle='#536b78';x.font='500 14px '+F;x.fillText(sub,pad,pad+18+tl.length*36+14);
+   x.drawImage(img,(W-cw)/2,headH,cw,ch);
+   var sy=headH+ch+18;x.strokeStyle='#c5dbe3';x.beginPath();x.moveTo(pad,sy);x.lineTo(W-pad,sy);x.stroke();
+   x.fillStyle='#536b78';x.font='12px '+F;sl.forEach(function(l,i){x.fillText(l,pad,sy+18+i*17)});
+   var fy=H-footH;x.fillStyle='#0d1b22';x.fillRect(0,fy,W,footH);x.fillStyle='#0e8a8f';x.fillRect(0,fy,W,3);
+   var bs=60;x.drawImage(badge,pad,fy+(footH-bs)/2+1,bs,bs);
+   x.fillStyle='#ffffff';x.font='700 17px '+F;var labTxt='From Waste to Resource (W2R) Lab';x.fillText(labTxt,pad+bs+16,fy+footH/2+7);var labW=bs+16+x.measureText(labTxt).width;
+   var th=44,tw=th*tech.width/tech.height;if(tw>W*0.38){tw=W*0.38;th=tw*tech.height/tech.width}
+   x.drawImage(tech,W-pad-tw,fy+(footH-th)/2+1,tw,th);
+   return {canvas:c,w:W,h:H,title:title,sub:sub,link:[pad-4,fy+(footH-bs)/2-3,labW+8,bs+8]}})})}
+
+function exportIG(el,k,fmtType,row){
+ var btns=row.querySelectorAll('button');btns.forEach(function(b){b.disabled=true});
+ var name='e-waste-atlas_'+slug(IG[k].t());
+ compose(el,k).then(function(o){
+  var jpg=o.canvas.toDataURL('image/jpeg',0.92);
+  if(fmtType==='jpg'){save(jpg,name+'.jpg');return}
+  return loadScript('https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js').then(function(){
+   var pdf=new jspdf.jsPDF({orientation:o.w>o.h?'l':'p',unit:'px',format:[o.w,o.h],hotfixes:['px_scaling'],compress:true});
+   pdf.setProperties({title:'E-Waste Atlas · '+o.title,subject:o.sub,author:'W2R Lab, Technion – Israel Institute of Technology',creator:'E-Waste Atlas · '+LAB_URL});
+   pdf.addImage(jpg,'JPEG',0,0,o.w,o.h);
+   pdf.link(o.link[0],o.link[1],o.link[2],o.link[3],{url:LAB_URL}); // W2R badge + lab name link to the lab website
+   pdf.save(name+'.pdf')})
+ }).catch(function(e){console.error(e);toast('Export failed — it needs an internet connection to load the export tools.')})
+ .then(function(){btns.forEach(function(b){b.disabled=false})})}
+
+/* in-page links live inside the shadow root */
+root.addEventListener('click',function(e){var a=e.target.closest('a[href^="#"]');if(!a)return;var t=root.getElementById(a.getAttribute('href').slice(1));if(!t)return;e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'});history.replaceState(null,'','#'+t.id)});
+if(location.hash){var t0=root.getElementById(location.hash.slice(1));if(t0)setTimeout(function(){t0.scrollIntoView({block:'start'})},60)}
+})();
+</script>
+</body>
+</html>

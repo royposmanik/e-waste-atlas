@@ -1,0 +1,82 @@
+{
+ "Fe": {
+  "cap": "Discarded refrigerators awaiting scrap recovery — steel cabinets are the bulk of large appliances",
+  "artist": "Infrogmation",
+  "lic": "CC BY 2.5",
+  "licUrl": "https://creativecommons.org/licenses/by/2.5",
+  "page": "https://commons.wikimedia.org/wiki/File:FridgesGraveyard2.jpg",
+  "file": "assets/img/elements/Fe.jpg"
+ },
+ "Al": {
+  "cap": "Laptop cooling assembly: heat pipe and fin stack on a motherboard",
+  "artist": "Saud",
+  "lic": "CC BY-SA 4.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Laptop_Heatsink.jpg",
+  "file": "assets/img/elements/Al.jpg"
+ },
+ "Cu": {
+  "cap": "A pile of scrap electrical cables at a recycling yard",
+  "artist": "GeorgHH",
+  "lic": "CC BY-SA 4.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Elektrokabelschrott_0109.jpg",
+  "file": "assets/img/elements/Cu.jpg"
+ },
+ "Ag": {
+  "cap": "Shredded circuit boards — feedstock for silver and other precious-metal recovery",
+  "artist": "Tony Webster",
+  "lic": "CC BY 2.0",
+  "licUrl": "https://creativecommons.org/licenses/by/2.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Recycled_Electronics_-_Circuit_Boards_(48659415958).jpg",
+  "file": "assets/img/elements/Ag.jpg"
+ },
+ "Au": {
+  "cap": "Gold-plated pins and lid of a ceramic microprocessor",
+  "artist": "Konstantin Lanzet",
+  "lic": "CC BY-SA 3.0",
+  "licUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+  "page": "https://commons.wikimedia.org/wiki/File:KL_TI_TMS9900_Black_Background.jpg",
+  "file": "assets/img/elements/Au.jpg"
+ },
+ "Pd": {
+  "cap": "Multilayer ceramic capacitors (brown) on a circuit board — the main palladium carrier",
+  "artist": "Giovanna 27",
+  "lic": "CC BY 4.0",
+  "licUrl": "https://creativecommons.org/licenses/by/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Ceramic_capacitors_mounted_on_a_PCB.jpg",
+  "file": "assets/img/elements/Pd.jpg"
+ },
+ "Co": {
+  "cap": "Lithium-ion cells inside a laptop battery pack",
+  "artist": "Lead holder",
+  "lic": "CC BY-SA 3.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Lithiumion-laptop-battery-internals.jpg",
+  "file": "assets/img/elements/Co.jpg"
+ },
+ "Nd": {
+  "cap": "Neodymium (NdFeB) magnets salvaged from hard disk drives",
+  "artist": "Raimond Spekking",
+  "lic": "CC BY-SA 4.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:4_Neodymium_magnets_from_hard_disks-6175.jpg",
+  "file": "assets/img/elements/Nd.jpg"
+ },
+ "Y": {
+  "cap": "Compact fluorescent lamp — its white phosphor coating contains yttrium",
+  "artist": "Armin Kübelbeck (Kuebi)",
+  "lic": "CC BY-SA 3.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Energiesparlampe_01a.jpg",
+  "file": "assets/img/elements/Y.jpg"
+ },
+ "Hg": {
+  "cap": "A spent fluorescent tube dumped in a street bin, where its mercury can escape",
+  "artist": "Gorwfeazkoa",
+  "lic": "CC BY-SA 4.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:HK_%E4%B8%8A%E7%92%B0_Sheung_Wan_%E6%B0%B8%E6%A8%82%E8%A1%97_Wing_Lok_Street_%E5%9E%83%E5%9C%BE%E7%AD%92_orange_rubbish_bin_%E8%88%8A%E5%85%89%E7%AE%A1_used_guaranteed_tube_%E6%A3%84%E7%BD%AE_black_plastic_bag_n_shop_May_2017_Lnv2.jpg",
+  "file": "assets/img/elements/Hg.jpg"
+ }
+}

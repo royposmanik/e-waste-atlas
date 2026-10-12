@@ -1,0 +1,58 @@
+{
+ "small": {
+  "cap": "A collection container for small electrical appliances, with a discarded TV set in front",
+  "artist": "Raimond Spekking",
+  "lic": "CC BY-SA 4.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Sammelcontainer_f%C3%BCr_Elektro-Kleinger%C3%A4te,_davor_ein_R%C3%B6hrenfernseher-075731548.jpg",
+  "file": "assets/img/categories/small.jpg"
+ },
+ "large": {
+  "cap": "A broken washing machine dumped outdoors",
+  "artist": "JIP",
+  "lic": "CC BY-SA 4.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Broken_washing_machine_left_as_trash_in_Tapiola.jpg",
+  "file": "assets/img/categories/large.jpg"
+ },
+ "temp": {
+  "cap": "Flood-damaged refrigerators and freezers lined up for disposal after Hurricane Irma, Florida",
+  "artist": "Bill Koplitz / FEMA",
+  "lic": "Public domain",
+  "licUrl": "",
+  "page": "https://commons.wikimedia.org/wiki/File:FEMA_-_FL4337_flood_damaged_white_goods_-_A_row_of_damaged_refrigerators_line_a_street_in_Islamorada,_Florida_after_Hurricane_Irma%27s_destruction.jpg",
+  "file": "assets/img/categories/temp.jpg"
+ },
+ "screen": {
+  "cap": "Old CRT monitors and computers piled up for disposal",
+  "artist": "AvWijk",
+  "lic": "Public domain",
+  "licUrl": "",
+  "page": "https://commons.wikimedia.org/wiki/File:Ewaste-pile.jpg",
+  "file": "assets/img/categories/screen.jpg"
+ },
+ "it": {
+  "cap": "Discarded mobile phones, chargers and cables",
+  "artist": "MikroLogika",
+  "lic": "CC BY-SA 3.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Handy_schrott_mobile_phone_scrap.jpg",
+  "file": "assets/img/categories/it.jpg"
+ },
+ "lamps": {
+  "cap": "Supermarket collection point for used energy-saving bulbs and fluorescent tubes, Norway",
+  "artist": "Wolfmann",
+  "lic": "CC BY-SA 4.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Recycling_point_(Milj%C3%B8stasjon_retur_av_batterier_lysr%C3%B8r)_EXTRA_(Coop)_supermarket_Sem_Norway_2017-11-07_b.jpg",
+  "file": "assets/img/categories/lamps.jpg"
+ },
+ "pv": {
+  "cap": "A cracked photovoltaic panel at end of life",
+  "artist": "ArnoldReinhold",
+  "lic": "CC BY-SA 4.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Solar_panel_damaged_NNHS.agr.jpg",
+  "file": "assets/img/categories/pv.jpg"
+ }
+}
